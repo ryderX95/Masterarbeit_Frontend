@@ -2,12 +2,12 @@ import { useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { tasks } from "@/data/tasks.tsx"; // Import tasks
 
-// Define the expected props
+// Define expected props
 type TaskAccordionProps = {
-  tasks: { id: number; title: string; content: JSX.Element }[];
+  userId: string; // ✅ Add userId to props
 };
 
-const TaskAccordion = ({ tasks }: TaskAccordionProps) => {
+const TaskAccordion = ({ userId }: TaskAccordionProps) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
@@ -23,7 +23,8 @@ const TaskAccordion = ({ tasks }: TaskAccordionProps) => {
           </button>
           {openIndex === index && (
             <div className="p-4 bg-gray-800 text-gray-300">
-              {task.content}
+              {/* ✅ Check if task.content is a function before calling it */}
+              {typeof task.content === "function" ? task.content({ userId }) : task.content}
             </div>
           )}
         </div>

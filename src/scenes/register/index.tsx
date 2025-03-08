@@ -1,44 +1,38 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-type Props = {
-  setIsAuthenticated: (value: boolean) => void;
-};
-
-const Login = ({ setIsAuthenticated }: Props) => {
+const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8000/auth/login", {
+      const response = await fetch("http://localhost:8000/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
       });
 
       if (!response.ok) {
-        throw new Error("Invalid credentials");
+        throw new Error("Registration failed");
       }
 
-      const data = await response.json();
-      localStorage.setItem("token", data.token); // ✅ Store token
-      setIsAuthenticated(true);
-      navigate("/"); // ✅ Redirect to main page
+      alert("Registration successful! You can now log in.");
+      navigate("/login");
     } catch (error) {
-      alert("Login failed: Invalid credentials!");
-      console.error("❌ Login Error:", error);
+      alert("Registration failed: User may already exist!");
+      console.error("❌ Registration Error:", error);
     }
   };
 
   return (
     <div className="flex justify-center items-center h-screen bg-background text-white">
       <div className="bg-gray-900 p-6 rounded-lg shadow-lg w-96">
-        <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
-        <form onSubmit={handleLogin}>
+        <h2 className="text-2xl font-bold mb-4 text-center">Register</h2>
+        <form onSubmit={handleRegister}>
           <input
             type="text"
             placeholder="Username"
@@ -53,19 +47,19 @@ const Login = ({ setIsAuthenticated }: Props) => {
             onChange={(e) => setPassword(e.target.value)}
             className="w-full p-2 mb-4 bg-gray-800 text-white rounded-md"
           />
-          <button type="submit" className="w-full bg-blue-600 px-4 py-2 rounded-md hover:bg-blue-700">
-            Login
+          <button type="submit" className="w-full bg-green-600 px-4 py-2 rounded-md hover:bg-green-700">
+            Register
           </button>
         </form>
         <button
-          onClick={() => navigate("/register")}
+          onClick={() => navigate("/login")}
           className="w-full mt-4 bg-gray-600 px-4 py-2 rounded-md hover:bg-gray-700"
         >
-          Register
+          Back to Login
         </button>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default Register;

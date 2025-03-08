@@ -1,11 +1,15 @@
 import Navbar from "@/scenes/navbar";
 import Header from "@/scenes/header";
-import TaskAccordion from "@/scenes";
+import TaskAccordion from "@/scenes"; // ✅ Correct import
 import Footer from "@/scenes/footer";
 import Chatbot from "@/scenes/chatbot"; 
 import { tasks } from "@/data/tasks"; 
+import Leaderboard from "./scenes/leaderboard";
 
 const Challenges = () => {
+  // ✅ Mock userId (Replace this with actual user authentication logic)
+  const userId = "user-123"; 
+
   return (
     <div className="bg-gray-800 text-text min-h-screen flex flex-col">
       <Navbar />
@@ -18,7 +22,7 @@ const Challenges = () => {
         
         {/* Left Section - Tasks */}
         <div className="w-full md:w-3/4 pr-6">
-          <TaskAccordion tasks={tasks} />
+          <TaskAccordion userId={userId} tasks={tasks} /> {/* ✅ Corrected props */}
         </div>
 
         {/* Right Section - Chatbot (now overlaps the header) */}

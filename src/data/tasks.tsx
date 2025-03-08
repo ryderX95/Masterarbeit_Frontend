@@ -8,7 +8,7 @@ import Conclusion from "@/scenes/tasks/Conclusion";
 
 export const tasks = [
   { id: 1, title: "Introduction", content: <Introduction /> },
-  { id: 2, title: "Authentication Enumeration", content: <AuthenticationEnumeration /> },
+  { id: 2, title: "Authentication Enumeration", content: (props: { userId: string }) => <AuthenticationEnumeration {...props} /> },
   { id: 3, title: "Enumerating Users via Verbose Errors", content: <VerboseErrors /> },
   { id: 4, title: "Exploiting Vulnerable Password Reset Logic", content: <PasswordReset /> },
   { id: 5, title: "Exploiting HTTP Basic Authentication", content: <BasicAuth /> },
