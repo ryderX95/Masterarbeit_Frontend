@@ -10,10 +10,30 @@ const Leaderboard = () => {
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
 
   useEffect(() => {
-    fetch("/api/leaderboard") // ✅ Adjust this endpoint if necessary
-      .then((res) => res.json())
-      .then((data) => setLeaderboard(data))
-      .catch((error) => console.error("Error fetching leaderboard:", error));
+    const fetchLeaderboard = async () => {
+      const token = localStorage.getItem("token"); // ✅ Retrieve JWT token
+
+      try {
+        const response = await fetch("http://localhost:8000/leaderboard", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`, // ✅ Include token
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch leaderboard");
+        }
+
+        const data = await response.json();
+        setLeaderboard(data);
+      } catch (error) {
+        console.error("Error fetching leaderboard:", error);
+      }
+    };
+
+    fetchLeaderboard();
   }, []);
 
   return (
