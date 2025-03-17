@@ -1,4 +1,6 @@
-const Header = () => {
+import React from "react";
+
+const Header = ({ onStartAttack }: { onStartAttack: () => void }) => {
   return (
     <section className="bg-gray-900 py-10 px-6 text-center w-full">
       <div className="max-w-7xl mx-auto">
@@ -6,7 +8,9 @@ const Header = () => {
         <h1 className="text-3xl font-bold text-white">Enumeration & Brute Force</h1>
         <p className="mt-2 text-gray-400">Enumerate and brute force authentication mechanisms.</p>
         <div className="mt-4 flex justify-center gap-4">
-          <button className="bg-blue-600 px-4 py-2 rounded-md text-white">Start AttackBox</button>
+          <button onClick={onStartAttack} className="bg-blue-600 px-4 py-2 rounded-md text-white">
+            Start AttackBox
+          </button>
         </div>
       </div>
     </section>

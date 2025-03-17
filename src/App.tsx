@@ -7,6 +7,7 @@ import Leaderboard from "./scenes/leaderboard";
 
 
 
+
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
     localStorage.getItem("auth") === "true"
