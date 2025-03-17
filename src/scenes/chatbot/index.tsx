@@ -2,7 +2,7 @@ import { useState } from "react";
 
 type Message = {
   text: string;
-  sender: "user" | "bot"; // ✅ Strict type
+  sender: "user" | "bot";
 };
 
 const Chatbot = () => {
@@ -15,15 +15,14 @@ const Chatbot = () => {
     const newMessages: Message[] = [...messages, { text: input, sender: "user" }];
     setMessages(newMessages);
 
-    const token = localStorage.getItem("token"); // ✅ Get JWT token
+    const token = localStorage.getItem("token");
 
     try {
       const response = await fetch("http://localhost:8000/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`, // ✅ Send token
-          
+          "Authorization": `Bearer ${token}`,
         },
         body: JSON.stringify({ message: input }),
       });
@@ -33,7 +32,7 @@ const Chatbot = () => {
       }
 
       const data = await response.json();
-      setMessages([...newMessages, { text: data.response, sender: "bot" }]); // ✅ Ensure sender is "bot"
+      setMessages([...newMessages, { text: data.response, sender: "bot" }]);
     } catch (error) {
       console.error("❌ API Error:", error);
       setMessages([...newMessages, { text: "Error: API failed", sender: "bot" }]);
@@ -43,21 +42,67 @@ const Chatbot = () => {
   };
 
   return (
-    <div className="relative bg-gray-900 rounded-xl p-4 shadow-lg -mt-10 border border-gray-700">
-      <div className="flex items-center justify-between text-white font-bold text-lg mb-2">
-        <span>🤖 Chatbot</span>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        width: "100%",
+        height: "100%",
+        borderRadius: "10px",
+        backgroundColor: "#222",
+        border: "1px solid gray",
+        boxShadow: "0px 4px 10px rgba(0,0,0,0.3)",
+        flexGrow: 1,
+        minHeight: "350px",
+        maxHeight: "100%",
+      }}
+    >
+      {/* Chatbot Header */}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "#333",
+          color: "white",
+          fontSize: "16px",
+          fontWeight: "bold",
+          padding: "10px",
+          borderRadius: "10px 10px 0 0",
+          flexShrink: 0,
+        }}
+      >
+        🤖 Chatbot
       </div>
 
-      <div className="flex-grow h-[300px] overflow-y-auto bg-gray-800 p-3 rounded-lg">
+      {/* Messages Section */}
+      <div
+        style={{
+          flexGrow: 1,
+          overflowY: "auto",
+          backgroundColor: "#444",
+          padding: "10px",
+          minHeight: "200px",
+          maxHeight: "calc(100% - 60px)",
+        }}
+      >
         {messages.length === 0 ? (
-          <p className="text-gray-400 text-sm">No messages yet...</p>
+          <p style={{ color: "lightgray", fontSize: "14px", textAlign: "center" }}>
+            No messages yet...
+          </p>
         ) : (
           messages.map((msg, index) => (
             <div
               key={index}
-              className={`p-2 rounded-md my-1 w-fit ${
-                msg.sender === "user" ? "bg-blue-600 text-white self-end" : "bg-gray-700 text-white self-start"
-              }`}
+              style={{
+                padding: "10px",
+                marginBottom: "8px",
+                borderRadius: "8px",
+                backgroundColor: msg.sender === "user" ? "#007AFF" : "#555",
+                color: "white",
+                alignSelf: msg.sender === "user" ? "flex-end" : "flex-start",
+                maxWidth: "80%",
+              }}
             >
               {msg.text}
             </div>
@@ -65,20 +110,47 @@ const Chatbot = () => {
         )}
       </div>
 
-      <div className="flex mt-3 border border-gray-600 rounded-lg overflow-hidden w-full">
+      {/* Input & Send Button */}
+      <div
+        style={{
+          display: "flex",
+          padding: "8px",
+          backgroundColor: "#333",
+          borderRadius: "0 0 10px 10px",
+          flexShrink: 0,
+          minHeight: "50px",
+        }}
+      >
         <input
           type="text"
-          className="flex-grow p-2 bg-gray-700 text-white outline-none placeholder-gray-400 w-full"
-          placeholder="Type a message..."
+          style={{
+            flexGrow: 1,
+            padding: "10px",
+            backgroundColor: "#555",
+            color: "white",
+            border: "none",
+            outline: "none",
+            borderRadius: "6px",
+            minWidth: "60px", // ✅ Shrinks at small sizes
+          }}
+          placeholder="..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
         <button
           onClick={sendMessage}
-          className="bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 shrink-0"
-          style={{ minWidth: "60px" }}
+          style={{
+            marginLeft: "8px",
+            padding: "10px 14px",
+            backgroundColor: "#007AFF",
+            color: "white",
+            border: "none",
+            borderRadius: "6px",
+            cursor: "pointer",
+            minWidth: "40px", // ✅ Shrinks to arrow when small
+          }}
         >
-          Send
+          {window.innerWidth < 350 ? ">" : "Send"}
         </button>
       </div>
     </div>
