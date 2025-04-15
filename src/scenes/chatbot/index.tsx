@@ -131,7 +131,7 @@ const Chatbot = () => {
             border: "none",
             outline: "none",
             borderRadius: "6px",
-            minWidth: "60px", // ✅ Shrinks at small sizes
+            minWidth: "60px", 
           }}
           placeholder="..."
           value={input}
@@ -147,7 +147,7 @@ const Chatbot = () => {
             border: "none",
             borderRadius: "6px",
             cursor: "pointer",
-            minWidth: "40px", // ✅ Shrinks to arrow when small
+            minWidth: "40px", 
           }}
         >
           {window.innerWidth < 350 ? ">" : "Send"}

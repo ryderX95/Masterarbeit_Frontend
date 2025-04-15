@@ -87,7 +87,7 @@ const Challenges = () => {
         borderLeft: "2px solid gray",
         paddingRight: showVNC ? "0" : "10px",
         borderRadius: chatExpanded ? "10px" : "0",
-        minWidth: chatExpanded ? "350px" : "50px",  // ✅ Different minWidth based on state
+        minWidth: chatExpanded ? "350px" : "50px",
         overflow: "hidden"
       }}>
         <button onClick={() => setChatExpanded(!chatExpanded)}

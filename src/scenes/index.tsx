@@ -5,13 +5,13 @@ import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 type Task = {
   id: number;
   title: string;
-  content: ReactNode | ((props: { userId: string }) => ReactNode); // ✅ Fix `ReactNode`
+  content: ReactNode | ((props: { userId: string }) => ReactNode);
 };
 
 // Define Props Type
 type TaskAccordionProps = {
   userId: string;
-  tasks: Task[]; // ✅ Now correctly typed
+  tasks: Task[];
   onTaskToggle: (isOpen: boolean) => void;
 };
 
@@ -37,7 +37,6 @@ const TaskAccordion = ({ userId, tasks, onTaskToggle }: TaskAccordionProps) => {
           </button>
           {openIndex === index && (
             <div className="p-4 bg-gray-800 text-gray-300">
-              {/* ✅ Fix: Properly handle function-based content */}
               {typeof task.content === "function" ? task.content({ userId }) : task.content}
             </div>
           )}

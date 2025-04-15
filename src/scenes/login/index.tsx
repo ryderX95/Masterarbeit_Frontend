@@ -25,9 +25,9 @@ const Login = ({ setIsAuthenticated }: Props) => {
       }
 
       const data = await response.json();
-      localStorage.setItem("token", data.token); // ✅ Store token
+      localStorage.setItem("token", data.token);
       setIsAuthenticated(true);
-      navigate("/"); // ✅ Redirect to main page
+      navigate("/"); 
     } catch (error) {
       alert("Login failed: Invalid credentials!");
       console.error("❌ Login Error:", error);

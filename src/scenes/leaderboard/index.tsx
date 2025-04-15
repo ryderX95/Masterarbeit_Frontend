@@ -11,14 +11,14 @@ const Leaderboard = () => {
 
   useEffect(() => {
     const fetchLeaderboard = async () => {
-      const token = localStorage.getItem("token"); // ✅ Retrieve JWT token
+      const token = localStorage.getItem("token"); // Retrieve JWT token
 
       try {
         const response = await fetch("http://localhost:8000/leaderboard", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`, // ✅ Include token
+            "Authorization": `Bearer ${token}`, // Include token
           },
         });
 
