@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import { fetchProgress, submitAnswer } from "@/api/fetchProgress";
 
-const AuthenticationEnumeration = ({ userId }: { userId: string }) => {
+// ✅ Props typing
+type Props = {
+  userId: string;
+};
+
+const AuthenticationEnumeration = ({ userId }: Props) => {
   const [answer, setAnswer] = useState("");
   const [feedback, setFeedback] = useState<string | null>(null);
   const [completed, setCompleted] = useState(false);

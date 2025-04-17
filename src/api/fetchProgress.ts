@@ -41,7 +41,7 @@ export const submitAnswer = async (userId: string, taskId: string, answer: strin
         }
 
         const result = await response.json();
-        console.log("📥 Server Response:", result); // ✅ Log backend response
+        console.log("📥 Server Response:", result);
         return result;
     } catch (error) {
         console.error("Error submitting answer:", error);

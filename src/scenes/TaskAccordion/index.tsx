@@ -1,19 +1,19 @@
 import { useState, ReactNode } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
-// Define Task Type
-type Task = {
-  id: number;
+export type Task = {
+  id: string;
   title: string;
-  content: ReactNode | ((props: { userId: string }) => ReactNode);
+  content: (props: { userId: string }) => React.ReactNode;
 };
 
-// Define Props Type
-type TaskAccordionProps = {
+
+export type TaskAccordionProps = {
   userId: string;
   tasks: Task[];
   onTaskToggle: (isOpen: boolean) => void;
 };
+
 
 const TaskAccordion = ({ userId, tasks, onTaskToggle }: TaskAccordionProps) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);

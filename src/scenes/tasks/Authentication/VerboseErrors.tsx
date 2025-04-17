@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import { fetchProgress, submitAnswer } from "@/api/fetchProgress";
 
-const VerboseErrors = ({ userId }: { userId: string }) => {
+type Props = {
+  userId: string;
+};
+
+const VerboseErrors = ({ userId }: Props) => {
   const [answer, setAnswer] = useState("");
   const [feedback, setFeedback] = useState<string | null>(null);
   const [completed, setCompleted] = useState(false);
@@ -68,7 +72,7 @@ const VerboseErrors = ({ userId }: { userId: string }) => {
 
       <div className="bg-gray-800 p-4 rounded-md mb-4 overflow-x-auto">
         <pre className="text-green-300 text-sm">
-          {`import requests
+{`import requests
 import sys
 
 def check_email(email):
@@ -101,7 +105,7 @@ if __name__ == "__main__":
         The script checks an email list against the web app, filtering valid and invalid ones based on error messages.
       </p>
 
-      {/* Answer the Question Section */}
+      {/* Answer Section */}
       <h3 className="text-xl font-semibold mb-2">Answer the Question</h3>
       <p className="mb-4">What internal filename was revealed in the verbose error?</p>
 

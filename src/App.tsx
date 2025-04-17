@@ -2,10 +2,10 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import { useState, useEffect } from "react";
 import Register from "./scenes/register";
 import Login from "./scenes/login";
-import Challenges from "./scenes/challenges";
 import Leaderboard from "./scenes/leaderboard";
 import Rooms from "./scenes/rooms";
-
+import InjectionRoom from "@/scenes/tasks/Injection";
+import AuthenticationRoom from "@/scenes/tasks/Authentication";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -13,12 +13,12 @@ function App() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-  
+
     if (token) {
       fetch("http://localhost:8000/auth/verify", {
         method: "GET",
         headers: {
-          "Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       })
         .then((res) => {
@@ -40,7 +40,6 @@ function App() {
       setLoading(false);
     }
   }, []);
-  
 
   if (loading) {
     return <div className="text-white p-10">Loading...</div>;
@@ -60,12 +59,16 @@ function App() {
           element={isAuthenticated ? <Leaderboard /> : <Navigate to="/login" replace />}
         />
         <Route
-          path="*"
-          element={<Navigate to={isAuthenticated ? "/" : "/login"} replace />}
+          path="/rooms/injection-attacks"
+          element={isAuthenticated ? <InjectionRoom /> : <Navigate to="/login" replace />}
         />
         <Route
-          path="/rooms/enumeration-brute-force"
-          element={isAuthenticated ? <Challenges /> : <Navigate to="/login" replace />}
+          path="/rooms/authentication"
+          element={isAuthenticated ? <AuthenticationRoom /> : <Navigate to="/login" replace />}
+        />
+        <Route
+          path="*"
+          element={<Navigate to={isAuthenticated ? "/" : "/login"} replace />}
         />
       </Routes>
     </Router>

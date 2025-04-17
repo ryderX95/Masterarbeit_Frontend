@@ -1,4 +1,8 @@
-const Introduction = () => {
+type Props = {
+  userId: string;
+};
+
+const Introduction = (_: Props) => {
   return (
     <div className="p-6 bg-gray-900 text-white rounded-md">
       {/* Title */}

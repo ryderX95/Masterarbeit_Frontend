@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import { fetchProgress, submitAnswer } from "@/api/fetchProgress";
 
-const Conclusion = ({ userId }: { userId: string }) => {
+// ✅ Strongly typed props
+type Props = {
+  userId: string;
+};
+
+const Conclusion = ({ userId }: Props) => {
   const [answer, setAnswer] = useState("");
   const [feedback, setFeedback] = useState<string | null>(null);
   const [completed, setCompleted] = useState(false);
@@ -36,16 +41,23 @@ const Conclusion = ({ userId }: { userId: string }) => {
 
       {/* Summary */}
       <p className="mb-4">
-        Throughout this training, we've explored various aspects of <strong>enumeration and brute-force attacks</strong>,
-        equipping you with both the <strong>theoretical knowledge</strong> and <strong>practical skills</strong> required for security assessments.
+        Throughout this training, we've explored various aspects of{" "}
+        <strong>enumeration and brute-force attacks</strong>, equipping you with both the{" "}
+        <strong>theoretical knowledge</strong> and <strong>practical skills</strong> required for security assessments.
       </p>
 
       {/* Key Takeaways */}
       <h3 className="text-xl font-semibold mb-2">📌 Key Takeaways</h3>
-      <ul className="list-disc pl-6 mb-4">
-        <li><strong>Effective Enumeration:</strong> Discovering valid users, hidden endpoints, and security misconfigurations is a crucial first step.</li>
-        <li><strong>Brute Force Efficiency:</strong> Using optimized wordlists, understanding rate-limiting, and detecting lockout mechanisms can improve attack efficiency.</li>
-        <li><strong>Ethical Responsibility:</strong> Always perform security testing with <strong>explicit permission</strong> to avoid legal and ethical violations.</li>
+      <ul className="list-disc pl-6 mb-4 space-y-1">
+        <li>
+          <strong>Effective Enumeration:</strong> Discovering valid users, hidden endpoints, and security misconfigurations is a crucial first step.
+        </li>
+        <li>
+          <strong>Brute Force Efficiency:</strong> Using optimized wordlists, understanding rate-limiting, and detecting lockout mechanisms can improve attack efficiency.
+        </li>
+        <li>
+          <strong>Ethical Responsibility:</strong> Always perform security testing with <strong>explicit permission</strong> to avoid legal and ethical violations.
+        </li>
       </ul>
 
       {/* Question */}

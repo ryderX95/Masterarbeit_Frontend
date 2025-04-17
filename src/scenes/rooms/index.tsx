@@ -1,30 +1,26 @@
 import { useNavigate } from "react-router-dom";
-import Navbar from "@/scenes/navbar"; // ✅ adjust this if the path differs
-import Footer from "@/scenes/footer"; // ✅ adjust this if the path differs
+import Navbar from "@/scenes/navbar";
+import Footer from "@/scenes/footer"; 
 
 const rooms = [
   {
-    id: "enumeration-brute-force",
+    id: "authentication",
     title: "Authentication",
-    code: "AUTH01",
     description: "Master enumeration and brute-force authentication mechanisms through real-world scenarios.",
   },
   {
     id: "injection-attacks",
     title: "Injection Attacks",
-    code: "DS22",
     description: "Practice SQL injection, command injection, and XSS across various real-world scenarios.",
   },
   {
     id: "server-side-exploits",
     title: "Server-Side Exploits",
-    code: "Joh22",
     description: "Explore SSRF, insecure deserialization, and file inclusion vulnerabilities on the server.",
   },
   {
     id: "advanced-client-side",
     title: "Advanced Client-Side Attacks",
-    code: "CSA01",
     description: "Master client-side security issues including DOM-based XSS, CSRF, and front-end bypasses.",
   },
 ];

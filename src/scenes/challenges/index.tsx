@@ -1,13 +1,18 @@
 import { useState, useEffect, useRef } from "react";
 import Navbar from "@/scenes/navbar";
 import Header from "@/scenes/header";
-import TaskAccordion from "@/scenes"; 
+import { type TaskAccordionProps, default as TaskAccordion } from "@/scenes/TaskAccordion";
 import Footer from "@/scenes/footer";
 import Chatbot from "@/scenes/chatbot"; 
-import { tasks } from "@/data/tasks"; 
 import VNCViewer from "@/components/VNCViewer";
 
-const Challenges = () => {
+type Props = {
+  tasks: TaskAccordionProps["tasks"];
+  title: string;
+};
+
+
+const Challenges = ({ tasks, title }: Props) => {
   const userId = "user-123"; 
   const [showVNC, setShowVNC] = useState(false);
   const [chatExpanded, setChatExpanded] = useState(false);
@@ -47,7 +52,7 @@ const Challenges = () => {
         minWidth: "50vw"
       }}>
         <Navbar />
-        <Header onStartAttack={() => setShowVNC(true)} />
+        <Header title={title} onStartAttack={() => setShowVNC(true)} />
 
         {/* Scrollable Content */}
 <div ref={contentRef}
@@ -120,7 +125,7 @@ const Challenges = () => {
         }}>
           <div style={{
   width: "50vw",
-  height: "100vh", // ✅ must be full height
+  height: "100vh",
   display: "flex",
   flexDirection: "column",
   backgroundColor: "black",
