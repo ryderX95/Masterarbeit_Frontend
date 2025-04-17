@@ -1,8 +1,8 @@
-import Introduction from "@/scenes/tasks/Introduction";
-import AuthenticationEnumeration from "@/scenes/tasks/AuthenticationEnumeration";
-import VerboseErrors from "@/scenes/tasks/VerboseErrors";
-import PasswordReset from "@/scenes/tasks/PasswordReset";
-import Conclusion from "@/scenes/tasks/Conclusion";
+import Introduction from "@/scenes/tasks/Authentication/Introduction";
+import AuthenticationEnumeration from "@/scenes/tasks/Authentication/AuthenticationEnumeration";
+import VerboseErrors from "@/scenes/tasks/Authentication/VerboseErrors";
+import PasswordReset from "@/scenes/tasks/Authentication/PasswordReset";
+import Conclusion from "@/scenes/tasks/Authentication/Conclusion";
 
 export const tasks = [
   { id: 1, title: "Introduction", content: <Introduction /> },

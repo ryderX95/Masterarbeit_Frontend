@@ -4,15 +4,18 @@
 @tailwind components;
 @tailwind utilities;
 
-
 html,
 body {
-    @apply bg-background text-text;
-  }
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  @apply bg-background text-text;
+}
+
 #root,
 .app {
-    height: 100%;
-    width: 100%;
-    font-family: "DM Sans", sans-serif;
-    @apply text-gray-500;
+  height: 100%;
+  width: 100%;
+  font-family: "DM Sans", sans-serif;
+  @apply text-gray-500;
 }

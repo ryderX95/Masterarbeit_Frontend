@@ -55,9 +55,9 @@ const Challenges = () => {
   style={{
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-between", // ✅ Keeps footer at the bottom
+    justifyContent: "space-between",
     flexGrow: 1,
-    height: "100%", // ✅ Ensures it fills parent
+    height: "100%", 
     overflowY: "auto",
   }}
 >
@@ -118,21 +118,28 @@ const Challenges = () => {
           padding: 0,
           minWidth: "50vw"
         }}>
-          <div style={{ display: "flex", justifyContent: "space-between", background: "#222", padding: "5px" }}>
-            <button onClick={() => setShowVNC(false)}
-              style={{ color: "white", fontSize: "20px", border: "none", background: "none", cursor: "pointer" }}>
-              ➖
-            </button>
-            <span style={{ color: "white", fontSize: "14px" }}>Remote Desktop</span>
-            <button onClick={openVNCFullScreen}
-              style={{ color: "white", fontSize: "20px", border: "none", background: "none", cursor: "pointer" }}>
-              ➕
-            </button>
-          </div>
+          <div style={{
+  width: "50vw",
+  height: "100vh", // ✅ must be full height
+  display: "flex",
+  flexDirection: "column",
+  backgroundColor: "black",
+  margin: 0,
+  padding: 0,
+  minWidth: "50vw"
+}}>
+  <div style={{ height: "40px", background: "#222", display: "flex", justifyContent: "space-between", padding: "5px" }}>
+    <button onClick={() => setShowVNC(false)}>➖</button>
+    <span style={{ color: "white" }}>Remote Desktop</span>
+    <button onClick={openVNCFullScreen}>➕</button>
+  </div>
 
-          <div style={{ width: "100%", height: "100%", margin: 0, padding: 0 }}>
-            <VNCViewer />
-          </div>
+  <div style={{ flex: 1, display: "flex" }}>
+    <VNCViewer />
+  </div>
+</div>
+
+
         </div>
       )}
     </div>

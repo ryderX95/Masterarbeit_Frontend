@@ -4,6 +4,8 @@ import Register from "./scenes/register";
 import Login from "./scenes/login";
 import Challenges from "./scenes/challenges";
 import Leaderboard from "./scenes/leaderboard";
+import Rooms from "./scenes/rooms";
+
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -51,7 +53,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route
           path="/"
-          element={isAuthenticated ? <Challenges /> : <Navigate to="/login" replace />}
+          element={isAuthenticated ? <Rooms /> : <Navigate to="/login" replace />}
         />
         <Route
           path="/leaderboard"
@@ -60,6 +62,10 @@ function App() {
         <Route
           path="*"
           element={<Navigate to={isAuthenticated ? "/" : "/login"} replace />}
+        />
+        <Route
+          path="/rooms/enumeration-brute-force"
+          element={isAuthenticated ? <Challenges /> : <Navigate to="/login" replace />}
         />
       </Routes>
     </Router>
