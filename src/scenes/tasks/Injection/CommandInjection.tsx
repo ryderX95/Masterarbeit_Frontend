@@ -28,43 +28,33 @@ const CommandInjection = ({ userId }: Props) => {
       setFeedback(null);
     } else {
       setButtonColor("bg-red-500 hover:bg-red-700");
-      setFeedback("❌ Incorrect answer! Try again.");
+      setFeedback("❌ Incorrect flag. Try again.");
       setTimeout(() => setButtonColor("bg-blue-500 hover:bg-blue-700"), 2000);
     }
   };
 
   return (
     <div className="p-6 bg-gray-900 text-white rounded-md">
-      <h2 className="text-2xl font-bold mb-4">Command Injection</h2>
+      <h2 className="text-2xl font-bold mb-4">🧨 Command Injection – Breaking the Shell Barrier</h2>
 
       <p className="mb-4">
-        Command Injection occurs when user input is insecurely passed into a system shell or command interpreter.
-        This allows attackers to execute arbitrary system commands.
+        A diagnostic tool on the vulnerable server lets users ping any hostname by passing it as a query
+        parameter. Unfortunately, it directly injects the input into a system shell command without validation.
       </p>
-
-      <h3 className="text-xl font-semibold mb-2">Common Vulnerable Scenarios:</h3>
-      <ul className="list-disc pl-6 mb-4 space-y-2">
-        <li>Search forms that call shell utilities</li>
-        <li>File upload or deletion tools on the server</li>
-        <li>Any unfiltered input going into a system command like <code>ping</code>, <code>ls</code>, or <code>cat</code></li>
-      </ul>
-
-      <h3 className="text-xl font-semibold mb-2">Test Payloads:</h3>
-      <div className="bg-gray-800 p-4 mb-4 rounded-md text-green-300 text-sm overflow-x-auto">
-        <pre>
-{`127.0.0.1; ls
-127.0.0.1 && whoami
-127.0.0.1 | cat /etc/passwd
-`}
-        </pre>
-      </div>
 
       <p className="mb-4">
-        These payloads attempt to chain additional system commands using shell operators like <code>;</code>, <code>&&</code>, or <code>|</code>.
+        Your mission: inject an additional command to read the contents of <code>/flag.txt</code>.
+        If successful, the response will include the flag.
       </p>
 
-      <h3 className="text-xl font-semibold mb-2">Answer the Question</h3>
-      <p className="mb-4">What is the name of the file in the <code>/root</code> directory that contains the flag?</p>
+      <p className="mb-4">
+        Target endpoint: <code>/ping?host=</code><br />
+        Try payloads like: <code>127.0.0.1; cat /flag.txt</code>
+      </p>
+
+      <h3 className="text-xl font-semibold mb-2">📝 Submit the Flag</h3>
+
+      <p className="mb-4">Flag format: <code>FLAG&#123;...&#125;</code></p>
 
       <div className="flex items-center space-x-2">
         <input
@@ -72,7 +62,7 @@ const CommandInjection = ({ userId }: Props) => {
           value={answer}
           onChange={(e) => setAnswer(e.target.value)}
           className="flex-1 p-2 bg-gray-700 text-white rounded-md border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="Enter your answer here"
+          placeholder="Enter the flag here..."
         />
         <button
           onClick={handleSubmit}
@@ -83,7 +73,7 @@ const CommandInjection = ({ userId }: Props) => {
       </div>
 
       {feedback && <p className="mt-2 text-red-400">{feedback}</p>}
-      {completed && <p className="mt-4 text-green-400 font-bold">✅ Task Completed!</p>}
+      {completed && <p className="mt-4 text-green-400 font-bold">✅ Flag Accepted – Task Complete!</p>}
     </div>
   );
 };

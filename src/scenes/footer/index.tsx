@@ -7,7 +7,7 @@ const Footer = () => {
         <p>Created by <span className="font-bold">Basnakajev Timur-Ali</span></p>
         <p>Thank you for your participation!</p>
         
-        {/* Logo + CyberX (Aligned) */}
+        {/* Logo + CyberX */}
         <div className="flex items-center space-x-2 mt-2">
           <img src={logo} alt="Logo" className="w-8 h-8 filter invert" />
           <p className="font-bold text-lg">CyberX</p>

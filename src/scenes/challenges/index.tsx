@@ -21,8 +21,10 @@ const Challenges = ({ tasks, title }: Props) => {
   const contentRef = useRef<HTMLDivElement>(null);
 
   const openVNCFullScreen = () => {
-    window.open("http://192.168.178.46:6080/vnc.html", "_blank");
+    const vncUrl = "http://192.168.178.46:6080/vnc_lite.html?host=192.168.178.46&port=6080&autoconnect=true&resize=remote";
+    window.open(vncUrl, "_blank");
   };
+  
 
   // Function to check scroll state and show/hide footer
   const checkScrollState = () => {
@@ -51,8 +53,8 @@ const Challenges = ({ tasks, title }: Props) => {
         overflow: "hidden",
         minWidth: "50vw"
       }}>
-        <Navbar />
-        <Header title={title} onStartAttack={() => setShowVNC(true)} />
+      <Navbar onStartAttack={() => setShowVNC(true)} />
+      <Header title={title} onStartAttack={() => setShowVNC(true)} />
 
         {/* Scrollable Content */}
 <div ref={contentRef}

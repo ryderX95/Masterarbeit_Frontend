@@ -17,13 +17,13 @@ export const authenticationTasks = [
   },
   {
     id: "3",
-    title: "Password Reset Flow Vulnerabilities",
-    content: ({ userId }: { userId: string }) => <PasswordReset userId={userId} />,
+    title: "Verbose Errors",
+    content: ({ userId }: { userId: string }) => <VerboseErrors userId={userId} />,
   },
   {
     id: "4",
-    title: "Verbose Errors",
-    content: ({ userId }: { userId: string }) => <VerboseErrors userId={userId} />,
+    title: "Password Reset Flow Vulnerabilities",
+    content: ({ userId }: { userId: string }) => <PasswordReset userId={userId} />,
   },
   {
     id: "5",

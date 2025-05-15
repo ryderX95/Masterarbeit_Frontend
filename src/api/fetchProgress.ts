@@ -1,6 +1,6 @@
-const API_BASE_URL = "http://localhost:8000"; // ✅ Ensure correct backend URL
+const API_BASE_URL = "http://localhost:8000";
 
-export const fetchProgress = async (userId: string) => {
+export const fetchProgress = async () => {
     try {
         const response = await fetch(`${API_BASE_URL}/challenges/progress`, {
             method: "GET",
@@ -22,9 +22,9 @@ export const fetchProgress = async (userId: string) => {
 };
 
 export const submitAnswer = async (userId: string, taskId: string, answer: string) => {
-    const trimmedAnswer = answer.trim(); // ✅ Ensure no leading/trailing spaces
+    const trimmedAnswer = answer.trim(); 
 
-    console.log("📤 Sending answer:", trimmedAnswer); // ✅ Debugging Log
+    console.log("📤 Sending answer:", trimmedAnswer);
 
     try {
         const response = await fetch("http://localhost:8000/challenges/progress", {

@@ -1,5 +1,16 @@
 import { useState, useEffect } from "react";
 import { fetchProgress, submitAnswer } from "@/api/fetchProgress";
+import ForgotPassword from "@/assets/ForgotPassword.png";
+import ForgotPassword2 from "@/assets/ForgotPassword2.png";
+import ForgotPasswordSent from "@/assets/ForgotPasswordSent.png";
+import ResetLink from "@/assets/Burp-Reset-Link.png";
+import Crunch from "@/assets/Crunch.png";
+import TargetScope from "@/assets/burp-target-scope.png";
+import ResetToken from "@/assets/Burp-Reset-Token.png";
+import IntruderResetToken from "@/assets/burp-intruder-reset-token.png";
+import BurpCrunchDictionary from "@/assets/Burp-Crunch-Dictionary.png";
+import BurpIntruderAttack from "@/assets/Burp-Intruder-Success.png";
+import Flag1 from "@/assets/vwa_flag1.png";
 
 type Props = {
   userId: string;
@@ -38,30 +49,58 @@ const PasswordReset = ({ userId }: Props) => {
       <h2 className="text-2xl font-bold mb-4">Password Reset Flow Vulnerabilities</h2>
 
       <p className="mb-4">
-        The password reset mechanism is essential for user convenience, but its security must be carefully implemented.
-        A poorly secured password reset process can be exploited by attackers to take over accounts.
+        Password reset functionality is vital for user accessibility, but without proper safeguards,
+        it can introduce critical security weaknesses. If this process is implemented poorly,
+        malicious actors can leverage it to hijack user accounts.
       </p>
 
-      <h3 className="text-xl font-semibold mb-2">Common Password Reset Methods</h3>
+      <h3 className="text-xl font-semibold mb-2">Common Reset Techniques</h3>
+      <p className="mb-2">
+        Web applications typically use one of several methods to verify user identity during a reset:
+      </p>
       <ul className="list-disc pl-6 space-y-2 mb-4">
-        <li><strong>Email-Based Reset:</strong> A reset link is sent via email, requiring secure token generation.</li>
-        <li><strong>Security Question-Based Reset:</strong> Users answer personal questions, but predictable answers can be exploited.</li>
-        <li><strong>SMS-Based Reset:</strong> A code is sent via SMS, which can be intercepted via SIM swapping.</li>
+        <li>
+          <strong>Email Link:</strong> The system sends a reset URL or token to the user's registered email.
+          This relies entirely on email account security and the confidentiality of the token.
+        </li>
+        <li>
+          <strong>Security Questions:</strong> The user must answer personal questions. While this adds a layer of
+          identity verification, weak or guessable questions severely reduce its effectiveness.
+        </li>
+        <li>
+          <strong>SMS Codes:</strong> A temporary code is delivered via text. This assumes secure access to
+          the phone but is vulnerable to SIM-swapping or mobile interception attacks.
+        </li>
       </ul>
 
-      <h3 className="text-xl font-semibold mb-2">Common Exploits & Weaknesses</h3>
+      <h3 className="text-xl font-semibold mb-2">Notable Weaknesses</h3>
+      <p className="mb-4">Each of these methods has its vulnerabilities:</p>
       <ul className="list-disc pl-6 space-y-2 mb-4">
-        <li><strong>Predictable Tokens:</strong> If reset tokens follow a pattern, attackers can brute-force valid reset URLs.</li>
-        <li><strong>Token Expiration Issues:</strong> Long-lived tokens provide a wider attack window for exploitation.</li>
-        <li><strong>Insufficient Validation:</strong> Weak verification mechanisms allow attackers to reset passwords for other users.</li>
-        <li><strong>Information Disclosure:</strong> Error messages revealing whether an email exists help attackers enumerate accounts.</li>
-        <li><strong>Insecure Transport:</strong> Reset links sent over HTTP can be intercepted by network eavesdroppers.</li>
+        <li>
+          <strong>Predictable Tokens:</strong> If tokens are short, numeric, or follow a pattern,
+          an attacker could guess them through brute-force techniques.
+        </li>
+        <li>
+          <strong>Token Lifetime:</strong> Tokens that stay valid for too long give attackers more time to exploit them.
+          They should expire quickly or be single-use.
+        </li>
+        <li>
+          <strong>Weak Validation:</strong> Inadequate user identity checks, such as easily guessed security questions,
+          allow resets without proper authorization.
+        </li>
+        <li>
+          <strong>Information Leakage:</strong> When reset forms return different error messages depending on whether
+          an email is valid or not, attackers can enumerate users.
+        </li>
+        <li>
+          <strong>Unencrypted Delivery:</strong> Reset tokens or URLs sent via non-HTTPS channels can be intercepted by attackers
+          monitoring the network.
+        </li>
       </ul>
 
-      <h3 className="text-xl font-semibold mb-2">Exploiting Predictable Tokens</h3>
+      <h3 className="text-xl font-semibold mb-2">Real-World Example: Predictable Token Exploitation</h3>
       <p className="mb-4">
-        Some applications generate easily guessable reset tokens, allowing brute-force attacks. The following code example shows
-        a vulnerable password reset function using a <strong>3-digit token</strong>:
+        In the demonstration lab, the reset token is generated using a basic random number between 100 and 200:
       </p>
 
       <div className="bg-gray-800 p-4 rounded-md mb-4 overflow-x-auto">
@@ -74,33 +113,68 @@ $query->execute();`}
       </div>
 
       <p className="mb-4">
-        The above code sets a <strong>3-digit</strong> password reset token (<code>100 - 200</code>). An attacker can
-        <strong> brute-force</strong> all possible token values to reset an account.
+        Because this token is both short and numeric, it becomes practical for an attacker to generate all possible values
+        and try them against the reset endpoint.
       </p>
 
-      <h3 className="text-xl font-semibold mb-2">Brute-Force Attack with Burp Suite</h3>
+      <h3 className="text-xl font-semibold mb-2">Performing the Attack</h3>
       <ol className="list-decimal pl-6 space-y-2 mb-4">
-        <li>Navigate to the application's password reset page.</li>
-        <li>Enter <code>admin@admin.com</code> and submit the form.</li>
-        <li>Intercept the response with <strong>Burp Suite</strong>.</li>
-        <li>Send the reset request to <strong>Burp Intruder</strong> and configure payloads for token brute-forcing.</li>
-        <li>Use <strong>Crunch</strong> to generate token guesses (<code>100-200</code>).</li>
+        <li>Visit the reset page at <code>http://127.0.0.1:3000/reset</code>.</li>
+        <img src={ForgotPassword} alt="Forgot Password" className="rounded shadow-md mb-6" />
+
+        <li>Press on "Forgot Password" and submit a request for <code>admin@admin.com</code>.</li>
+        <img src={ForgotPassword2} alt="Forgot Password" className="rounded shadow-md mb-6" />
+
+        <p className="mb-4">The web app will respond with a success message:</p>
+        <img src={ForgotPasswordSent} alt="Forgot Password" className="rounded shadow-md mb-6" />
+
+        <li>Capture the generated request using Burp Suite.</li>
+
+        <p className="mb-4">
+          Scenario: You forgot the password to your user profile and you triggered the "forgot password" option. You observed
+          that your reset token was 561 as shown in the reset link provided "http://localhost:5000/reset-password?token=561".
+          You get curious and decide to try to guess the token. For demonstration purposes the web application uses the reset
+          link with the following format and a numeric token length of three digits: http://localhost:5000/reset-password?token=
+        </p>
+        <img src={ResetLink} alt="Reset Link" className="rounded shadow-md mb-6" />
+        <p>
+          Generate a dictionary of numbers from 100 to 200 and save it as opt.txt:
+        </p>
+        <img src={Crunch} alt="Crunch Token Generation" className="rounded shadow-md mb-6" />
+
+        <p>
+          Add http://127.0.0.1:3000/ and http://localhost:5000/ to the scope in Burp Suite.
+        </p>
+        <img src={TargetScope} alt="Target Scope" className="rounded shadow-md mb-6" />
+        <img src={ResetToken} alt="Reset Token" className="rounded shadow-md mb-6" />
+
+        <li>Send the request to Intruder and mark the token field as the payload position.</li>
+        <img src={IntruderResetToken} alt="Intruder Token" className="rounded shadow-md mb-6" />
+
+        <li>
+          Load the generated dictionary by crunch and start the attack.
+          <img src={BurpCrunchDictionary} alt="Crunch Dictionary" className="rounded shadow-md mb-6" />
+        </li>
+
+        <li>
+          Observe the length of the returned content. Look for a different length entry:
+          <img src={BurpIntruderAttack} alt="Intruder Attack" className="rounded shadow-md mb-6" />
+        </li>
       </ol>
 
-      <div className="bg-gray-800 p-4 rounded-md mb-4 overflow-x-auto">
-        <pre className="text-green-300 text-sm">
-{`user@tryhackme $ crunch 3 3 -o otp.txt -t %%% -s 100 -e 200
-Crunch will now generate the following number of lines: 101
-Crunch: 100% completed generating output`}
-        </pre>
-      </div>
+      <h3 className="text-xl font-semibold mb-2">Final Step</h3>
+      <p>
+        Login to the application using the new password. If successful, the application will reveal a flag.
+        <img src={Flag1} alt="Flag 1" className="rounded shadow-md mb-6" />
+      </p>
 
-      <p className="mb-4">
-        Once the correct token is found, use it to reset the password and take over the account.
+      <p>
+        For demonstration purposes, the token is only a 3-digit numeric value, in this case "123". In real life applications
+        these tokens are mostly a numeric value of 6 digits.
       </p>
 
       <h3 className="text-xl font-semibold mb-2">Answer the Question</h3>
-      <p className="mb-4">What is the flag shown after successfully resetting the password for admin?</p>
+      <p className="mb-4">What flag is shown after resetting the password for the admin user?</p>
 
       <div className="flex items-center space-x-2">
         <input
