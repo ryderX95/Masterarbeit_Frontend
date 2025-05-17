@@ -1,3 +1,4 @@
+import { JSX } from "react";
 import SQLInjection from "@/scenes/tasks/Injection/SQLInjection";
 import CommandInjection from "@/scenes/tasks/Injection/CommandInjection";
 import XSS from "@/scenes/tasks/Injection/XSS";

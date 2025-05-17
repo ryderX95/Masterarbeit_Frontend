@@ -1,3 +1,5 @@
+import { JSX } from "react";
+
 export enum SelectedPage {
     Leaderboard = "Leaderboard",
     Benefits = "benefits",
