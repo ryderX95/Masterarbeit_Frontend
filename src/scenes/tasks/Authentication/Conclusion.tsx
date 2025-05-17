@@ -6,10 +6,10 @@ type Props = {
 };
 
 const Conclusion = ({ userId }: Props) => {
-  const [completed, setCompleted] = useState(false);
+  const [_, setCompleted] = useState(false);
 
   useEffect(() => {
-    fetchProgress(userId).then((progress) => {
+    fetchProgress().then((progress) => {
       if (progress["Conclusion"]?.completed) {
         setCompleted(true);
       }

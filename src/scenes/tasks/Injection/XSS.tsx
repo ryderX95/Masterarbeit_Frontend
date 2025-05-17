@@ -12,7 +12,7 @@ const XSS = ({ userId }: Props) => {
   const [buttonColor, setButtonColor] = useState("bg-blue-500 hover:bg-blue-700");
 
   useEffect(() => {
-    fetchProgress(userId).then((progress) => {
+    fetchProgress().then((progress) => {
       if (progress["BasicXSS"]?.completed) {
         setCompleted(true);
         setButtonColor("bg-green-500");

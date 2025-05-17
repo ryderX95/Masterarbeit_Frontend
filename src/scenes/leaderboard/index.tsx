@@ -40,7 +40,7 @@ const Leaderboard = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-white">
-      <Navbar />
+      <Navbar onStartAttack={() => {}} />
 
       <main className="flex-grow px-4 py-10 bg-gray-900">
         <div className="max-w-5xl mx-auto">

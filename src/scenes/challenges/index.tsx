@@ -29,7 +29,7 @@ const Challenges = ({ tasks, title }: Props) => {
   // Function to check scroll state and show/hide footer
   const checkScrollState = () => {
     if (contentRef.current) {
-      const { scrollTop, scrollHeight, clientHeight } = contentRef.current;
+      const { scrollHeight, clientHeight } = contentRef.current;
       const needsScroll = scrollHeight > clientHeight;
       setShowFooter(!needsScroll);
     }

@@ -30,7 +30,7 @@ const Rooms = () => {
 
   return (
     <div className="text-white bg-gray-900 min-h-screen flex flex-col">
-      <Navbar />
+      <Navbar onStartAttack={() => {}} />
 
       {/* Intro Section */}
       <section className="text-center px-4 py-12">
